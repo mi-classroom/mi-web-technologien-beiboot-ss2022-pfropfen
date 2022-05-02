@@ -1,0 +1,45 @@
+@font-face {
+  font-display: swap;
+  font-family: IBMPlexSans;
+  font-style: normal;
+  font-weight: 200;
+  src: url('../assets/fonts/IBM_Plex_Sans/IBMPlexSans-Light.ttf');
+}
+
+@font-face {
+  font-display: swap;
+  font-family: IBMPlexSans;
+  font-style: normal;
+  font-weight: 300;
+  src: url('../assets/fonts/IBM_Plex_Sans/IBMPlexSans-Regular.ttf');
+}
+
+@font-face {
+  font-display: swap;
+  font-family: IBMPlexSans;
+  font-style: normal;
+  font-weight: 400;
+  src: url('../assets/fonts/IBM_Plex_Sans/IBMPlexSans-Medium.ttf');
+}
+
+@font-face {
+  font-display: swap;
+  font-family: IBMPlexSans;
+  font-style: normal;
+  font-weight: 600;
+  src: url('../assets/fonts/IBM_Plex_Sans/IBMPlexSans-Bold.ttf');
+}
+
+@font-face {
+  font-display: swap;
+  font-family: 'MaterialIcons';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../assets/fonts/MaterialIcons/MaterialIcons-Regular.eot'); /* For IE6-8 */
+  src:
+    local('Material Icons'),
+    local('MaterialIcons-Regular'),
+    url('../assets/fonts/MaterialIcons/MaterialIcons-Regular.woff2') format('woff2'),
+    url('../assets/fonts/MaterialIcons/MaterialIcons-Regular.woff') format('woff'),
+    url('../assets/fonts/MaterialIcons/MaterialIcons-Regular.ttf') format('truetype');
+}

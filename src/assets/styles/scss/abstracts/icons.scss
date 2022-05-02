@@ -1,0 +1,48 @@
+// Icons
+i.icon {
+  display: inline-block;
+  width: auto;
+  height: auto;
+  margin-right: 0.5rem;
+  direction: ltr;
+  font-family: $font-icons;
+  font-feature-settings: 'liga';
+  font-size: 24px;  /* Preferred icon size */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-style: normal;
+  font-weight: normal;
+  letter-spacing: normal;
+  line-height: inherit;
+  text-rendering: optimizeLegibility;
+  text-transform: none;
+  vertical-align: middle;
+  white-space: nowrap;
+  word-wrap: normal;
+
+  &.i12::before { font-size: 12px !important; }
+  &.i14::before { font-size: 14px !important; }
+  &.i18::before { font-size: 18px !important; }
+  &.i24::before { font-size: 24px !important; }
+  &.i36::before { font-size: 36px !important; }
+  &.i48::before { font-size: 48px !important; }
+  &::before { content: attr(data-icon); }
+  &.red { color: red; }
+}
+
+//.icon Font Awesome Extend
+.icon {
+  font-family: $font-icons;
+  text-transform: none;
+}
+
+[data-filetype=pdf] {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  margin: 5px 5px 5px 0;
+  background: url(../assets/images/icon-sprite-2021.svg) no-repeat;
+  background-position: -2400px 0;
+  transition: opacity 0.25s;
+  vertical-align: middle;
+}

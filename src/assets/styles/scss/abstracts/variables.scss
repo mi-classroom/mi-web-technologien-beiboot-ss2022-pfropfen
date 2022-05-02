@@ -1,0 +1,173 @@
+/* Farben
+---------------------------------------------------------------------------- */
+
+$medium: #666;
+$dark: #444;
+$darker: #222;
+$darkest: #000;
+$light: #b4b4b4;
+$lighter: #f2f2f2;
+$lightest:#fff;
+$lighten: rgba(255, 255, 255, 0.06);
+$lighten-strong: rgba(255, 255, 255, 0.2);
+$accent: #fc0;
+$accent-dark: #e8a60c;
+$error: #c00;
+$darken: rgba(0, 0, 0, 0.06);
+$darken-medium: rgba(0, 0, 0, 0.1);
+$darken-strong: rgba(0, 0, 0, 0.6);
+$darken-strongest: rgba(0, 0, 0, 0.8);
+
+
+/* Viewports
+---------------------------------------------------------------------------- */
+
+$vp-medium: 768px;
+$vp-large: 1024px;
+$vp-xlarge: 1440px;
+$vp-xxlarge: 1800px;
+
+/* Größen und Abstände
+---------------------------------------------------------------------------- */
+$bfs: 0.9rem;
+
+/* Entlang folgender Reihe
+0.2
+0.6
+0.75
+1
+1.25
+1.4
+1.6
+1.8
+2.24
+
+*/
+
+// $xxs: $bfs * 0.2;
+// $xs: $bfs * 0.6;
+// $s: $bfs * 0.75;
+// $m: $bfs;
+// $l: $bfs * 1.25;
+// $xl: $bfs * 1.4;
+// $xxl: $bfs * 1.6;
+// $xxxl: $bfs * 1.8;
+
+$xxs: $bfs * 0.2;
+$xs: $bfs * 0.4;
+$s: $bfs * 0.8;
+$m: $bfs;
+$l: $bfs * 1.2;
+$xl: $bfs * 1.4;
+$xxl: $bfs * 1.8;
+$xxxl: $bfs * 2.6;
+
+$half: math.div($m, 2);
+$quad: math.div($m, 4);
+
+/* Texte */
+$column-large: $m * 50;
+$column-medium: $m * 40;
+$column-small: $m * 30;
+$term-width: $m * 12;
+$term-width-large: $m * 16;
+
+/* Schriften
+---------------------------------------------------------------------------- */
+
+$font-sans-serif: "IBMPlexSans", sans-serif;
+$font-icons: 'MaterialIcons';
+$font-code: menlo, consolas, "Courier New", courier, "Liberation Mono", monospace;
+
+/* Schriftgewichte
+---------------------------------------------------------------------------- */
+$fw-light: 200;
+$fw-regular: 300;
+$fw-semibold: 400;
+$fw-bold: 600;
+
+/* Zeilenabstände
+---------------------------------------------------------------------------- */
+$lh-tight: 120%;
+$lh-normal: 140%;
+$lh-loose: 160%;
+
+$lh-headlines: $lh-tight;
+
+/* Animationen (Entlang der Fibonacci Reihe)
+---------------------------------------------------------------------------- */
+
+$tr-slow: 0.8s;
+$tr-medium: 0.5s;
+$tr-fast: 0.3s;
+
+/* Kacheln
+---------------------------------------------------------------------------- */
+
+$tile-xxs: $m * 7;
+$tile-xs: $m * 14;
+$tile-s: $m * 28;
+
+/* Levels (z-Index)
+---------------------------------------------------------------------------- */
+
+$level-background: 0;
+$level-content: 10;
+$level-content-nav: 20;
+$level-section-nav: 30;
+$level-overall-nav: 40;
+$level-overlay: 100;
+
+/* Schatten
+---------------------------------------------------------------------------- */
+$shadow: 1px 1px $xxs rgba(0, 0, 0, 0.4);
+$shadow-xs: 1px 1px $half rgba(0, 0, 0, 0.4);
+$shadow-s: 1px 1px $s rgba(0, 0, 0, 0.4);
+$shadow-m: 1px 1px $m rgba(0, 0, 0, 0.4);
+$shadow-top: 0 0 $xxs rgba(0, 0, 0, 0.4);
+$shadow-top-s: 0 0 $s rgba(0, 0, 0, 0.4);
+$shadow-top-m: 0 0 $m rgba(0, 0, 0, 0.4);
+
+/* Opacity
+---------------------------------------------------------------------------- */
+$op-medium: 0.5;
+$op-low: 0.2;
+
+/* Misc
+---------------------------------------------------------------------------- */
+
+$border-stroke-weight: 2px;
+$border-stroke-weight-s: 1px;
+$inner-shadow: inset 0 0 $s rgba(0, 0, 0, 10);
+$radius-s: 2px;
+$radius-m: 5px;
+
+/* Adaptive Values
+---------------------------------------------------------------------------- */
+
+:root {
+  --responsive-padding-top: #{$m};
+  --responsive-padding-top-inner: #{$s};
+  --responsive-padding-right-left: #{$m};
+  --responsive-padding-bottom: #{$l};
+  --responsive-padding-bottom-inner: #{$m};
+  --responsive-gap: #{$m};
+
+  @media only screen and (min-width: $vp-xlarge) {
+    --responsive-padding-top: #{$xxl};
+    --responsive-padding-top-inner: #{$xl};
+    --responsive-padding-right-left: #{$xxl};
+    --responsive-padding-bottom: #{$xxxl};
+    --responsive-padding-bottom-inner: #{$xl};
+    --responsive-gap: #{$xl};
+  }
+
+  @media only screen and (min-width: $vp-xxlarge) {
+    --responsive-padding-top: #{$xxxl};
+    --responsive-padding-top-inner: #{$xxl};
+    --responsive-padding-right-left: #{$xxxl};
+    --responsive-padding-bottom: #{$xxxl};
+    --responsive-padding-bottom-inner: #{$xxl};
+    --responsive-gap: #{$xxl};
+  }
+}
