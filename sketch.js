@@ -1,5 +1,5 @@
 
-let page_nr = 5;
+let page_nr = 1;
 
 let xabstand = 400;
 let yabstand = 600;
@@ -18,9 +18,25 @@ let kunstwerke;
 function preload() {
   let url =
    'json/cda-paintings-2022-04-22.de.json';
-  kunstwerke = loadJSON(url);
+  kunstwerke = loadJSON(url, sortKunstwerke);
   
   anzahlItems = kunstwerke.items.length;
+}
+
+
+function sortKunstwerke(){
+  kunstwerke.items.sort((a, b) => {
+    let fa = a.sortingNumber.toLowerCase(),
+        fb = b.sortingNumber.toLowerCase();
+
+    if (fa < fb) {
+        return -1;
+    }
+    if (fa > fb) {
+        return 1;
+    }
+    return 0;
+});
 }
 
 
