@@ -20,7 +20,8 @@ function preload() {
    'json/cda-paintings-2022-04-22.de.json';
   kunstwerke = loadJSON(url, sortKunstwerke);
   
-  anzahlItems = kunstwerke.items.length;
+  //anzahlItems = kunstwerke.items.length;
+  
 }
 
 
@@ -37,6 +38,9 @@ function sortKunstwerke(){
     }
     return 0;
 });
+
+kunstwerke.items = kunstwerke.items.filter(item => item.isBestOf);
+
 }
 
 
