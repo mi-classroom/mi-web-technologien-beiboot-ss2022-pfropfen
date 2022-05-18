@@ -11,7 +11,9 @@ Stefan Steinhauer
 pfropfen.github.io
 
 # Nutzung des Docker Images
-Der Container aus Basis des angebotenen Images lässt sich mit folgendem Befehl starten:
+Für die Verwendung des Images wird Docker benötigt.
+Der Container auf Basis des angebotenen Images lässt sich mit folgendem Befehl starten:
+
 docker run -p 8080:80 -d --name beiboottest pfropfen/meisterwerke:latest
 
 Anschließend kann die Website lokal über localhost:8080 erreicht werden.
