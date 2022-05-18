@@ -16,5 +16,4 @@ Das Projekt wird mit P5 umgesetzt. Da es als Webseite eingebunden werden soll we
 
 ## Consequences
 
-Konsequenzen von P5
-Konsequenzen von P5/Javascript Sicherheit? 
+P5/Javascript
