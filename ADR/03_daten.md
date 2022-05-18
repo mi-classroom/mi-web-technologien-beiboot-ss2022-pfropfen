@@ -7,6 +7,8 @@ ungeklärt
 ## Context
 
 Die Daten die auf der Website angezeigt werden befinden sich in einer JSON-Datei. Diese soll nicht Teil des Repositorys sein, damit der Inhalt vor fremdem Zugriff geschützt ist.
+Um die Datei nicht mit ins Repository zu pushen wird der Dateiname in der .gitignore-Datei eingetragen.
+
 
 
 ## Decision
