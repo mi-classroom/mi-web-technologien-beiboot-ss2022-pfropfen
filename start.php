@@ -7,7 +7,7 @@
   <body>
   <?php
   if ($_POST["user"]=="cranach" && $_POST["password"]=="meisterwerke") {
-	  echo "<script src='p5.RoverCam.js'></script>";
+	  echo "<script src='roverCam.js'></script>";
 	  echo "<script src='sketch.js'></script>";
 	
   } 
