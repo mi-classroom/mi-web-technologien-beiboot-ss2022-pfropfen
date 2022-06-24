@@ -1,17 +1,82 @@
 
 
+// calculate height for the plane
+      const calculateHeight = (element) => {
+            const split = element.dimensions.replace(/[\])}[{(]/g, ' ').split(' ');
+            const scalingFactor = 1 / 1.8;
+            const splitWithoutCM = split.filter(
+              (string) => string !== 'cm' && string !== ''
+            );
+
+            let size;
+            let sideMeasured;
+
+            for (const string of splitWithoutCM) {
+              const stringSlicedAtDash = string.split('-')[0];
+
+              if (!size) {
+                if (/\d/.test(stringSlicedAtDash)) {
+                  size = parseFloat(stringSlicedAtDash.replace(/,/g, '.'));
+                }
+              } else {
+                sideMeasured = stringSlicedAtDash;
+
+                break;
+              }
+            }
+
+            switch (sideMeasured) {
+              case 'oben':
+                size =
+                  (size / element.images.overall.images[0].sizes.medium.dimensions.width) *
+                  element.images.overall.images[0].sizes.medium.dimensions.height;
+
+                break;
+              case 'Durchmesser':
+                /* eslint-disable */
+                const scaledDiameter = Math.sqrt(
+                  Math.pow(
+                    element.images.overall.images[0].sizes.medium.dimensions.width,
+                    2
+                  ) +
+                    Math.pow(
+                      element.images.overall.images[0].sizes.medium.dimensions.height,
+                      2
+                    )
+                );
+
+                const scalingFactor = size / scaledDiameter;
+
+                size =
+                  element.images.overall.images[0].sizes.medium.dimensions.height *
+                  scalingFactor;
+
+                break;
+              default:
+                break;
+            }
+
+            return (size / 100) * scalingFactor;
+          };
 
 
 let kunstwerke;
 let img = [];
-let ratio = [];  // SEITENVERHÄLTNIS
 let hoehe = [];
 let breite = [];
+let ratio = [];  // SEITENVERHÄLTNIS
 
 let years_count;
 
 let bildsize = 5;
 let biggestImage;
+
+
+let tsize = 0.12;
+let tsize_year = 1.2;
+let pg;
+
+let sichtweite = 3;   // SICHTWEITE
 
 
 function preload() {
@@ -22,7 +87,6 @@ function preload() {
    'json/cda-paintings-2022-04-22.de.json';
   kunstwerke = loadJSON(url, sortKunstwerke);
   
-  //anzahlItems = kunstwerke.items.length;
     
   
 }
@@ -47,35 +111,26 @@ function sortKunstwerke(){
   kunstwerke.items = kunstwerke.items.filter(item => item.isBestOf);
 
 
-  //print(typeof kunstwerke.items);
-  //print(kunstwerke.items.length);
-  //print(kunstwerke.items[0].isBestOf);
-  //print(kunstwerke.items[0].sortingNumber);
-  //img = loadImage('https://lucascranach.org/data-proxy/image.php?subpath=/CH_SORW_1925-1b_FR006/01_Overall/CH_SORW_1925-1b_FR006_2008-11_Overall-s.jpg');
-  
- 
   biggestImage = 0;
   
   for (let i=0; i<kunstwerke.items.length; i++) {
-	//print(i);
+
 	let imageLinkOld = kunstwerke.items[i].images.overall.images[0].sizes.medium.src;
 	let imageLinkNew = imageLinkOld.replace("imageserver-2022", "data-proxy/image.php?subpath=");
 	img[i] = loadImage(imageLinkNew);
 	
-	//DIMENSIONS  height/width
-	hoehe[i] = kunstwerke.items[i].images.overall.infos.maxDimensions.height;
-	breite[i] = kunstwerke.items[i].images.overall.infos.maxDimensions.width;
-	ratio[i] = kunstwerke.items[i].images.overall.infos.maxDimensions.height/kunstwerke.items[i].images.overall.infos.maxDimensions.width;
 	
-	/*
+	//DIMENSIONS
+	let scalingFactor = 10;
+	hoehe[i] = calculateHeight(kunstwerke.items[i])*scalingFactor;
+	//ratio[i] = kunstwerke.items[i].images.overall.infos.maxDimensions.width/kunstwerke.items[i].images.overall.infos.maxDimensions.height;
+	ratio[i] = kunstwerke.items[i].images.overall.images[0].sizes.medium.dimensions.width/kunstwerke.items[i].images.overall.images[0].sizes.medium.dimensions.height;
+	breite[i] = hoehe[i]*ratio[i];
+	
+	
+	
 	if (hoehe[i] > biggestImage) {
 		biggestImage = hoehe[i];
-	}
-	*/
-	
-	
-	if (bildsize*ratio[i] > biggestImage) {
-		biggestImage = bildsize*ratio[i];
 	}
 	
 	
@@ -94,15 +149,11 @@ function sortKunstwerke(){
 	years_count++;
 	}
 	
-	//print("YEAR_COUNT: "+years_count);
+	
+	
+
   }
-  
-    
-  
-  
-
- 
-
+  //print("YEARCOUNT: "+years_count);
 }
 
 
@@ -179,11 +230,8 @@ document.addEventListener('pointerlockchange', onPointerlockChange, false);
 var player, maze, f, help = false,
   canvas;
 
-/*
-function preload() {
-  f = loadFont('inconsolata.ttf');
-}
-*/
+
+
 
 function setup() {
   canvas = createCanvas(windowWidth, windowHeight, WEBGL);
@@ -196,6 +244,11 @@ function setup() {
   strokeWeight(2);
   player.position.x = 0;
   player.position.z = 0;
+  
+ 
+
+  
+  textSize(tsize);
 }
 
 
@@ -204,14 +257,43 @@ function setup() {
 function keyPressed() {
   if (key == 'h') help = !help;
   if(key=='+'){
-    player.pov.fovy -= 0.1;
-    player.updatePOV();
+    sichtweite++;
   }
   if(key=='-'){
-    player.pov.fovy += 0.1;
-    player.updatePOV();
+    sichtweite--;
+  }
+  if(key=='1'){
+    sichtweite = 1;
+  }
+  if(key=='2'){
+    sichtweite = 2;
+  }
+  if(key=='3'){
+    sichtweite = 3;
+  }
+  if(key=='4'){
+    sichtweite = 4;
+  }
+  if(key=='5'){
+    sichtweite = 5;
+  }
+  if(key=='6'){
+    sichtweite = 6;
+  }
+  if(key=='7'){
+    sichtweite = 7;
+  }
+  if(key=='8'){
+    sichtweite = 8;
+  }
+  if(key=='9'){
+    sichtweite = 9;
+  }
+  if(key=='0'){
+    sichtweite = years_count;
   }
 }
+
 
 function draw() {
   
@@ -224,32 +306,12 @@ function draw() {
 
 }
 
-function drawAxes(){
-	push();
-      noStroke();
-	  fill(127,0,0); // X red
-	 // translate(75,0.5,0.5);
-	  box(150,1,1);
-	pop();
-	push();
-      noStroke();
-	  fill(0,127,0); // Y green
-	// translate(0.5,75,0.5);
-	  box(1,150,1);
-	pop();
-	push();
-      noStroke();
-	  fill(0,0,127); // Z blue
-	//  translate(0.5,0.5,75);
-	  box(1,1,150);
-	pop();
-}
+
 
 function drawTimeline() {
 	
 
-	let years_distance = 10;
-	//let years_start_position = 25;
+	let years_distance = 10.0;
 	let timeline_size = 0.1;
 	
 	let w = 0;
@@ -263,7 +325,7 @@ function drawTimeline() {
 	
 	let bildabstand = 5;
 	
-	let rand = 2;
+	let rand = 0.2;
 	
 	let year_size;
 	
@@ -271,21 +333,18 @@ function drawTimeline() {
 	
 	
 	
+	
+	
 	translate(0,2,0); //CAMERA POSITION
+	print(player.position.x);
 	
 	
 	push();					//TIMELINE
 	  noStroke();
 	  fill(127,127,127);
-	  translate((years_count*years_distance)/2,0,-rand*2);
+	  translate((years_count*years_distance)/2,0,-rand);
 	  box(years_count*years_distance,timeline_size,timeline_size);
 	pop();
-	
-	
-	
-	
-
-	
 	
 	
 	
@@ -293,36 +352,58 @@ function drawTimeline() {
 	
 	for (let i = 0; i < years_count; i++) { 
 
-		
-		
-		
+
 		push();
 		rotateY(PI/2);
-		//translate(-bildabstand/2,-bildsize/2,0);
-		//translate(-bildabstand/2-bildsize/2,-bildsize/2,0);
 		translate(-bildsize/2,-biggestImage/2,0);
 		
 		year_size = 0.0;
 		
-		do {
 		
+		
+		
+		
+		
+		
+		do {
+			if (i*years_distance < player.position.x + sichtweite*years_distance &&
+     	        i*years_distance > player.position.x - sichtweite*years_distance) {
+			// BILD ANZEIGEN
+			push();
+			texture(img[w]);
+			noStroke();
+			plane(breite[w],hoehe[w]);   // vorderseite (bild) plane(width,height)
+			pop();
+			
 
 			
 			
-			
-			texture(img[w]);
+			// TEXT ANZEIGEN
+			textSize(tsize);
+			push();
 			noStroke();
-			plane(bildsize,bildsize*ratio[w]);   // plane(width,height)
-			//plane(breite[w]/100,hoehe[w]/100);   // plane(width,height)
-			translate(-bildabstand-bildsize,0,0);
-			//pop();
+			translate(0,0,0.1);
+			plane(breite[w],hoehe[w]);  // rückseite für text
+			fill(0);
+			translate(-breite[w]/2+0.1,0,0.1);
+			text('Titel: '+kunstwerke.items[w].metadata.title,0,0);
+			translate(0,tsize,0);
+			text('Künstler: '+kunstwerke.items[w].involvedPersons[0].name,0,0);
+			translate(0,tsize,0);
+			text('Art: '+kunstwerke.items[w].medium,0,0);
+			translate(0,tsize,0);
+			text('Besitzer: '+kunstwerke.items[w].repository,0,0);
+			pop();
 			
-				
+				} // ENDIF
+			translate(-bildabstand-breite[w],0,0);
+			
+			
 			
 			
 			sort_nr = kunstwerke.items[w].sortingNumber.split("-");
 			current_year = sort_nr[0];
-			//print(current_year);
+
 			
 			next_sort_nr = kunstwerke.items[w+1].sortingNumber.split("-");
 			next_year = next_sort_nr[0];
@@ -337,29 +418,35 @@ function drawTimeline() {
 		} while (next_year == current_year);
 		pop();
 		
+		
 		year_size -= bildabstand;
 		
+		if (i*years_distance < player.position.x + sichtweite*years_distance &&
+     	        i*years_distance > player.position.x - sichtweite*years_distance) {
 		push();		// PURPLE YEAR LINE
+		
+		  push();
+		  textSize(tsize_year);
+		  translate(0,0,-2.9);
+		  rotateY(-PI/2);
+		  text(current_year,0,0);   // JAHR Text
+		  pop();
+		  
 		  noStroke();
 		  fill(127,0,127);
 		  translate(0,0,year_size/2-rand/2);
 		  box(timeline_size,timeline_size,year_size+rand*2);
+		  
+		  
 		pop();
-	
-	/*
-		push();		// YEAR WALL
-		  stroke(51);
-		  noFill();
-		 // translate(i*years_distance,-2.5,12.5);
-		  translate(timeline_size/2,-biggestImage/2,year_size/2-rand/2);
-		 // box(timeline_size,5,25);	
-		  box(timeline_size,biggestImage,year_size+rand*2);	
-		pop();
-	*/	
 		
+		
+				} // ENDIF
+	
+	//  } // ENDIF SICHTWEITE
 	translate(years_distance,0,0);
 		
-		
+      
 		
 	
 	}
@@ -377,6 +464,9 @@ function mouseClicked() {
     player.pointerLock = false;
   }
 }
+
+
+
 
 
 
