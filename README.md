@@ -18,4 +18,11 @@ docker run -p 8080:80 -d --name beiboottest pfropfen/meisterwerke:latest
 
 Anschließend kann die Website lokal über localhost:8080 erreicht werden.
 
+Steuerung:
+L.Maustaste: Betreten (Cursor einfangen)
+Cursortasten: Bewegung
+0-9: Sichtweite (Jahre)
++/-: Sichtweite erhöhen/veringern
+ESC: Verlassen (Cursor freigeben)
+
 
