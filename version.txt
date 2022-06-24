@@ -2,3 +2,7 @@
 Player Camera
 Seitenverhältnis der Bilder
 Timeline
+
+Sichtweite einstellbar
+Seitenverhältnis nun korrekt
+Scaling factor
