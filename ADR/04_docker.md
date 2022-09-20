@@ -2,7 +2,7 @@
 
 ## Status
 
-Testphase
+Accepted
 
 ## Context
 
@@ -12,9 +12,8 @@ Das benötigte Image wird bei Bedarf aus dem Docker Hub geladen.
 
 ## Decision
 
-Der Docker Service wird vorerst nicht per Docker-Compose ausgerollt, sondern per run-Befehl gestartet.
-Solange es sich nur um 1 Container handelt, scheint Compose nicht notwendig zu sein. Diese Entscheidung muss möglicherweise im späteren Verlauf revidiert werden.
-
+Der Docker Service wird nicht per Docker-Compose ausgerollt, sondern per run-Befehl gestartet.
+Solange es sich nur um 1 Container handelt, scheint Compose nicht notwendig zu sein. 
 ## Consequences
 
-Der run-Befehl von Docker benötigt zusätzliche flags für den Namen sowie die Ports bzw die Portweiterleitung. 
+Der run-Befehl von Docker benötigt zusätzliche flags für den Namen sowie die Ports bzw die Portweiterleitung.
