@@ -6,3 +6,6 @@ Timeline
 Sichtweite einstellbar
 Seitenverhältnis nun korrekt
 Scaling factor
+
+Related Images
+OnClick FEHLGESCHLAGEN

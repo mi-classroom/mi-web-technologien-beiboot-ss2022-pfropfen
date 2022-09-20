@@ -18,11 +18,28 @@ docker run -p 8080:80 -d --name beiboottest pfropfen/meisterwerke:latest
 
 Anschließend kann die Website lokal über localhost:8080 erreicht werden.
 
-Steuerung:
+# Nutzung lokal mit XAMPP
+Das Programm XAMPP (https://www.apachefriends.org/de/download.html) sowie die JSON-Datei des Projekts wird benötigt. 
+1. Den Inhalt des Repositorys nach \xampp\htdocs\ kopieren.
+2. Die JSON-Datei 'cda-paintings-2022-04-22.de' nach \xampp\htdocs\json\ kopieren.
+3. In XAMPP den Apache-Server starten.
+
+Anschließend kann die Website lokal über localhost:80 erreicht werden. 
+
+# Steuerung
 L.Maustaste: Betreten (Cursor einfangen)
-Cursortasten: Bewegung
-0-9: Sichtweite (Jahre)
-+/-: Sichtweite erhöhen/veringern
 ESC: Verlassen (Cursor freigeben)
+
+WASD/Cursortasten/Maus: Bewegung
+u/j: hoch/runter
+
+1-9: Sichtweite (Jahre)
+0: maximale Sichtweite (alle Jahre) 
++/-: Sichtweite erhöhen/veringern (1 Jahr)
+
+r: Related Images ein-/ausblenden
+
+
+
 
 
